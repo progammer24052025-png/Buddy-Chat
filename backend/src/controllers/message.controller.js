@@ -1,5 +1,6 @@
 import cloudinary from "../lib/cloudinary.js";
 import { getReceiverSocketId, io } from "../lib/socket.js";
+import { sendPushToUser } from "../lib/pushService.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 
@@ -71,6 +72,14 @@ export const sendMessage = async (req, res) => {
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("newMessage", newMessage);
+    } else {
+      // Receiver is offline — send push notification
+      const sender = await User.findById(senderId).select("fullName profilePic");
+      await sendPushToUser(receiverId, {
+        title: sender.fullName,
+        body: text || "Sent an image",
+        icon: sender.profilePic || "/avatar.png",
+      });
     }
 
     res.status(201).json(newMessage);

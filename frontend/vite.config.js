@@ -22,7 +22,7 @@ export default defineConfig({
       'localhost',
       '[IP_ADDRESS]',
       'postmeningeal-homeoplastic-janiyah.ngrok-free.dev',
-      'buddy-chat-bwy9.onrender.com'
+      'family-chat-bwy9.onrender.com'
     ],
   },
 })

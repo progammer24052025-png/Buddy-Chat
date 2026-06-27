@@ -5,7 +5,7 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
   const info = await transporter.sendMail({
     from: `"${sender.name}" <${sender.email}>`,
     to: email,
-    subject: "Welcome to Buddy Chat!",
+    subject: "Welcome to Family Chat!",
     html: createWelcomeEmailTemplate(name, clientURL),
   });
 
