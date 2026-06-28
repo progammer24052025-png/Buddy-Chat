@@ -1,4 +1,4 @@
-import { PushNotifications, ActionPerformed } from '@capacitor/push-notifications';
+import { PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 
 /**
