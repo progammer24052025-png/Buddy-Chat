@@ -122,23 +122,9 @@ app.use("/api/friends", friendRoutes);
 
 // ---------- STEP 7: Production Setup (Deployment) ----------
 
-// When deployed to production (Render, Railway, etc.), the frontend is built
-// into static files (HTML, CSS, JS) in the `frontend/dist` folder.
-// Instead of running a separate Vite server, we serve these files from Express.
-
-if (ENV.NODE_ENV === "production") {
-  // express.static(): Serves files from the `dist` folder as-is.
-  // Example: A request to /assets/index.css returns the CSS file directly.
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-  // Catch-all route: For ANY URL not matched above, serve index.html.
-  // This is needed for React Router (SPA) — if a user refreshes on /chat,
-  // the server returns index.html and React Router handles the routing client-side.
-  // The `_` (underscore) is a convention for "unused parameter" (we ignore `req`).
-  app.get("*", (_, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
+// NOTE: Frontend is now deployed separately on Vercel (https://family-chat-eqff.vercel.app)
+// The backend on Render only handles API and WebSocket connections.
+// No need to serve static files from Express anymore.
 
 // ---------- STEP 8: Start the Server ----------
 
